@@ -143,11 +143,13 @@
         representedClass = [[_unarchiver class] classForYAMLTag:tagString];
     }
     if(!representedClass) {
+        NSString *tagString = nil;
         if(type == YAML_MAPPING_START_EVENT) {
-            representedClass = [NSDictionary class];
+            tagString = [[NSDictionary YACYAMLUnarchivingTags] lastObject];
         } else {
-            representedClass = [NSArray class];
+            tagString = [[NSArray YACYAMLUnarchivingTags] lastObject];
         }
+        representedClass = [[_unarchiver class] classForYAMLTag:tagString];
     }
     
     if(type == YAML_MAPPING_START_EVENT && 
